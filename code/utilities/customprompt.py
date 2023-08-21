@@ -5,7 +5,8 @@ template = """{summaries}
 
 The text above presents a request for information sent by a citizen to a government institution and the institution's response.
 The text above contains the official stance of the institution. 
-Every text is independent from other texts. Don't mix information from different texts (sources).
+At the top of every document you will find the document id, publication date, status, etc. This information identifies the document and is very relevant. 
+Every document is independent from other texts. Don't mix information from different texts (sources, documents).
 Please reply to the question below using only the information present in the text or texts above.
 If you can't find it, reply politely that the information is not in the knowledge base.
 Detect the language of the question and answer in the same language. 
