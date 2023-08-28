@@ -122,7 +122,7 @@ class AzureSearch(VectorStore):
         index_name: str,
         embedding_function: Callable,
         semantic_configuration_name: str = None,
-        semantic_query_language: str = "en-en", #zmienione 28.08
+        semantic_query_language: str = "pl-pl", #zmienione 28.08, undone
         **kwargs: Any,
     ):
         """Initialize with necessary components."""
