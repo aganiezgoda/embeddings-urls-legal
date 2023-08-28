@@ -63,8 +63,8 @@ class LLMHelper:
         self.model: str = os.getenv('OPENAI_EMBEDDINGS_ENGINE_DOC', "text-embedding-ada-002")
         self.deployment_name: str = os.getenv("OPENAI_ENGINE", os.getenv("OPENAI_ENGINES", "text-davinci-003"))
         self.deployment_type: str = os.getenv("OPENAI_DEPLOYMENT_TYPE", "Text")
-        self.temperature: float = float(os.getenv("OPENAI_TEMPERATURE", 0.1)) if temperature is None else temperature
-        self.max_tokens: int = int(os.getenv("OPENAI_MAX_TOKENS", -1)) if max_tokens is None else max_tokens
+        self.temperature: float = float(os.getenv("OPENAI_TEMPERATURE", 0.2)) if temperature is None else temperature
+        self.max_tokens: int = int(os.getenv("OPENAI_MAX_TOKENS", -1)) if max_tokens is None else max_tokens #If you set the parameter to -1, it means that you want to use the maximum possible number of tokens for the completion
         self.prompt = PROMPT if custom_prompt == '' else PromptTemplate(template=custom_prompt, input_variables=["summaries", "question"])
         self.vector_store_type = os.getenv("VECTOR_STORE_TYPE")
 
@@ -147,6 +147,9 @@ class LLMHelper:
             logging.error(f"Error adding embeddings for {source_url}: {e}")
             raise e
 
+
+#enable translation
+
     def convert_file_and_add_embeddings(self, source_url, filename, enable_translation=False):
         # Extract the text from the file
         text = self.pdf_parser.analyze_read(source_url)
@@ -184,6 +187,7 @@ class LLMHelper:
 
     def get_semantic_answer_lang_chain(self, question, chat_history):
         question_generator = LLMChain(llm=self.llm, prompt=CONDENSE_QUESTION_PROMPT, verbose=False)
+        #check the decisions here https://api.python.langchain.com/en/latest/chains/langchain.chains.qa_with_sources.loading.load_qa_with_sources_chain.html
         doc_chain = load_qa_with_sources_chain(self.llm, chain_type="stuff", verbose=False, prompt=self.prompt)
         chain = ConversationalRetrievalChain(
             retriever=self.vector_store.as_retriever(),
@@ -226,6 +230,7 @@ class LLMHelper:
         else:
             return self.llm(prompt)
 
+    # TODO
     # remove paths from sources to only keep the filename
     def filter_sourcesLinks(self, sources):
         # use regex to replace all occurences of '[anypath/anypath/somefilename.xxx](the_link)' to '[somefilename](thelink)' in sources

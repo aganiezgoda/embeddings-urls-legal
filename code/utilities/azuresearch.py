@@ -85,8 +85,8 @@ def get_search_client(endpoint: str, key: str, index_name: str, semantic_configu
                     kind="hnsw",
                     hnsw_parameters={
                         "m": 4,
-                        "efConstruction": 1000,   #https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-create-index?tabs=portal-add-field%2Cpush
-                        "efSearch": 1000,
+                        "efConstruction": 400,   #https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-create-index?tabs=portal-add-field%2Cpush #changed 28.08
+                        "efSearch": 5000,
                         "metric": "cosine"
                     }
                 )
@@ -122,7 +122,7 @@ class AzureSearch(VectorStore):
         index_name: str,
         embedding_function: Callable,
         semantic_configuration_name: str = None,
-        semantic_query_language: str = "pl-pl",
+        semantic_query_language: str = "en-en", #zmienione 28.08
         **kwargs: Any,
     ):
         """Initialize with necessary components."""

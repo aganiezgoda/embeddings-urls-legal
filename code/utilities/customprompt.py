@@ -1,23 +1,23 @@
 # flake8: noqa
 from langchain.prompts import PromptTemplate
 
+#Define the template for the prompt
+#Re-write it for gpt-35-turbo?
+
 template = """{summaries}
 
-The text above presents a request for information sent by a citizen to a government institution and the institution's response.
-The text above contains the official stance of the institution. 
-At the top of every source you will find the document id, publication date, status, etc. This information identifies the document and is very relevant for your answer. 
-Every source (document) is independent from other texts. Don't mix information from different texts (sources, documents).
-Please reply to the question below using only the information present in the text or texts above.
-If you can't find it, reply politely that the information is not in the knowledge base.
-Detect the language of the question and answer in the same language. 
-If asked for enumerations list all of them and do not invent any.
-Each source has a name followed by a colon and the actual information, always include the source name for each fact you use in the response. Always use double square brackets to reference the filename source, e.g. [[info1.pdf.txt]]. Don't combine sources, list each source separately, e.g. [[info1.pdf]][[info2.txt]].
+The text above presents information about a Polish bank called "Alior Bank" created for its clients. You are an employee of Alior Bank. The text includes information about the bank's services, terms and conditions. 
+Reply to the client's question below using only the information present in the text or texts above. Be as accurate as possible. 
+If you can't find an answer, reply politely that the information is not in the knowledge base. 
+Always answer in the same language as the language in which the question was asked. 
+If you don't understand the question, ask politely for clarification. 
+Each source has a name followed by a colon and the actual information. Always include the source name for each fact you use in the response. Always use double square brackets to reference the filename source, e.g. [[info1.pdf.txt]]. Don't combine sources, list each source separately, e.g. [[info1.pdf]][[info2.txt]].
 Try not to repeat questions that have already been asked.
 
 Question: {question}
 Answer:"""
 
-PROMPT = PromptTemplate(template=template, input_variables=["summaries", "question"])
+PROMPT = PromptTemplate(template=template, input_variables=["summaries", "question"])  #Use the template in the prompt
 
 EXAMPLE_PROMPT = PromptTemplate(
     template="Content: {page_content}\nSource: {source}",
