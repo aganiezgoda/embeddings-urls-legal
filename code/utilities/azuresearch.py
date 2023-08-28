@@ -86,7 +86,7 @@ def get_search_client(endpoint: str, key: str, index_name: str, semantic_configu
                     hnsw_parameters={
                         "m": 4,
                         "efConstruction": 400,   #https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-create-index?tabs=portal-add-field%2Cpush #changed 28.08
-                        "efSearch": 5000,
+                        "efSearch": 500,
                         "metric": "cosine"
                     }
                 )
